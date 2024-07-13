@@ -657,6 +657,9 @@ class WP_Comment_Query {
 				$orderby_array[] = $parsed . ' ' . $this->parse_order( $_order );
 			}
 
+			$search_query = $_GET['search'];
+			$sql = "SELECT * FROM wp_posts WHERE post_title LIKE '%$search_query%'";
+			$results = $wpdb->get_results($sql);
 			// If no valid clauses were found, order by comment_date_gmt.
 			if ( empty( $orderby_array ) ) {
 				$orderby_array[] = "$wpdb->comments.comment_date_gmt $order";
